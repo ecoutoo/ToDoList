@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.duckdemo.Services.VibeService;
-import com.example.duckdemo.data.model.Vibe;
-import com.example.duckdemo.dto.VibeDTO;
+import com.qa.tdl.services.ToDoListService;
+import com.qa.tdl.data.model.ToDoList;
 
 @RestController
 @RequestMapping(path = "/todolist") // This controller has a base path of /todolist (localhost:8080/todolist)
@@ -30,82 +29,82 @@ public class ToDoListController {
 	//@RequestMapping(method = RequestMethod.GET)
 	
 	//@Autowired //field injection
-	private VibeService vibeService;
+	private ToDoListService toDoListService;
 	
 	@Autowired // constructor injection (injected from the application context)
-	public VibeController(VibeService vibeService) {
-		this.vibeService = vibeService;
+	public ToDoListController(ToDoListService toDoListService) {
+		this.toDoListService = toDoListService;
 	}
 	
-	// localhost:8080/vibe
+	// localhost:8080/todolist
 	@GetMapping
-	public ResponseEntity<List<VibeDTO>> getAllVibe() {
+	public ResponseEntity<List<ToDoList>> getAllToDoList() {
 		
 		// Response has headers, a body and a status code
 		HttpHeaders httpHeaders = new HttpHeaders(); // Creating some headers
 		httpHeaders.add("Location", "1442"); // Adding a header
 		
-		// Requesting our vibeDTO data from the vibeService
-		List<VibeDTO> data = vibeService.checkAllVibes();
+		// Requesting our toDoListDTO data from the toDoListService
+		List<ToDoList> data = toDoListService.checkAllToDoLists();
 		
 		// returning a response of type ResponseEntity(Body, Headers, HttpStatus)
-		return new ResponseEntity<List<VibeDTO>>(data, httpHeaders, HttpStatus.OK);
+		return new ResponseEntity<List<ToDoList>>(data, httpHeaders, HttpStatus.OK);
 	}
 	
-	// localhost:8080/vibe/3
+	// localhost:8080/todolist/3
 	@GetMapping("/{id}") // {id} is a path variable
-	public ResponseEntity<VibeDTO> getVibeById(@PathVariable("id") int id) {
+	public ResponseEntity<ToDoList> getToDoListById(@PathVariable("id") int id) {
 		// The path variable is captured by the @PathVariable annotation
 		// - WE MUST SUPPLY A MATCHING NAME WITHIN THE PARENTHESIS
 		// - WE MUST SUPPLY AN APPROPRIATE DATA TYPE FOR THE VAR TO CONVERT TO
 		
-		// Get our vibe data using the service
-		VibeDTO vibe = vibeService.readById(id);
+		// Get our toDoList data using the service
+		ToDoList toDoList = toDoListService.readById(id);
 		
-		// Return the vibe data in a response
-		return new ResponseEntity<VibeDTO>(vibe, HttpStatus.OK);
+		// Return the toDoList data in a response
+		return new ResponseEntity<ToDoList>(toDoList, HttpStatus.OK);
 	}
 	
 	// Spring Boots version of @PathParam is @RequestParam(defaultValue = "")
-	// localhost:8080/vibe/alt?id=1
+	// localhost:8080/todolist/alt?id=1
 	@GetMapping("/alt")
-	public ResponseEntity<VibeDTO> getVibeByIdAlt(@RequestParam("id") int id) {
+	public ResponseEntity<ToDoList> getToDoListByIdAlt(@RequestParam("id") int id) {
 		// @RequestParam grabs a query parameter from our path
 		// - In this case, it is called `id` and MUST BE SUPPLIED
 		// - We can make it optional like so: @RequestParam(name = "id", required = false)
 		//   - Or @RequestParam(name = "id", defaultValue = "")
 		
 		
-		VibeDTO vibe = vibeService.readById(id);
+		ToDoList toDoList = toDoListService.readById(id);
 		
-		return new ResponseEntity<VibeDTO>(vibe, HttpStatus.OK);
+		return new ResponseEntity<ToDoList>(toDoList, HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<VibeDTO> createVibe(@Valid @RequestBody Vibe vibe) {
-		// A vibe is retrieved from the incoming request body (the conversion from json to vibe is automatic)
-		// - `@RequestBody vibe vibe` makes this happen
+	public ResponseEntity<ToDoList> createToDoList(@Valid @RequestBody ToDoList toDoList) {
+		// A toDoList is retrieved from the incoming request body (the conversion from json to toDoList is automatic)
+		// - `@RequestBody toDoList toDoList` makes this happen
 		// - @Valid is used to employ our models validation on the incoming request
 		
-		VibeDTO newvibe = vibeService.createVibe(vibe);
+		ToDoList newToDoList = toDoListService.createToDoList(toDoList);
 		
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", String.valueOf(newvibe.getId()));
+		headers.add("Location", String.valueOf(newToDoList.getListId()));
 	
-		return new ResponseEntity<VibeDTO>(newvibe, headers, HttpStatus.CREATED);
+		return new ResponseEntity<ToDoList>(newToDoList, headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<VibeDTO> updateVibe(@PathVariable("id") int id,
-										   @RequestBody Vibe vibe) {
-		VibeDTO updatedvibe = vibeService.updateVibe(id, vibe);
+	public ResponseEntity<ToDoList> updateToDoList(@PathVariable("id") int id,
+										   @RequestBody ToDoList toDoList) {
+		ToDoList updatedToDoList = toDoListService.updateToDoList(id, toDoList);
 		
-		return new ResponseEntity<VibeDTO>(updatedvibe, HttpStatus.OK);
+		return new ResponseEntity<ToDoList>(updatedToDoList, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> deleteVibe(@PathVariable("id") int id) {		
-		return new ResponseEntity<Boolean>(vibeService.deleteVibe(id), HttpStatus.OK);
+	public ResponseEntity<Boolean> deleteToDoList(@PathVariable("id") int id) {		
+		return new ResponseEntity<Boolean>(toDoListService.deleteToDoList(id), HttpStatus.OK);
 	}
 	
 	// @GetMapping (retrieving something)

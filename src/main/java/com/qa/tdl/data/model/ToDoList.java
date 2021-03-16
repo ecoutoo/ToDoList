@@ -21,8 +21,6 @@ public class ToDoList {
 	private String title;
 	
 	@NotNull
-	@Min(0)
-	@Max(10)
 	private Boolean completed;
 	
 	public ToDoList() {

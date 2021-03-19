@@ -47,74 +47,36 @@ public class ItemController {
 	
 	private ItemService itemService;
 	
-	private ItemDTOModelAssembler itemDTOModelAssembler;
-	
 	@Autowired 
-	public ItemController(ItemService itemService, ItemDTOModelAssembler itemDTOModelAssembler) {
+	public ItemController(ItemService itemService) {
 		this.itemService = itemService;
-		this.itemDTOModelAssembler = itemDTOModelAssembler;
 	}
 	
 	@GetMapping
-	public ResponseEntity<CollectionModel<EntityModel<ItemDTO>>> getAllItems() {
-
-		List<ItemDTO> data = itemService.readAllItems();
-		
-		List<EntityModel<ItemDTO>> entityModels = data.stream().map(item -> 
-			itemDTOModelAssembler.toModel(item)
-		).collect(Collectors.toList());
-		
-		CollectionModel<EntityModel<ItemDTO>> collectionModel = CollectionModel.of(
-				entityModels,
-				linkTo(methodOn(ItemController.class).getAllItems()).withSelfRel()
-		);
-		
-		return new ResponseEntity<CollectionModel<EntityModel<ItemDTO>>>(collectionModel, HttpStatus.OK);
+	public ResponseEntity<List<ItemDTO>> getAllItems() {
+		List<ItemDTO> data = itemService.readAllItems();		
+		return new ResponseEntity<List<ItemDTO>>(data, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}") 
-	public ResponseEntity<EntityModel<ItemDTO>> getItemById(@PathVariable("id") Integer id) {
-
-		ItemDTO item = itemService.readById(id);
-		
-		EntityModel<ItemDTO> itemEntityModel = EntityModel.of(item,
-				linkTo(methodOn(ItemController.class).getItemById(id)).withSelfRel(), 
-				linkTo(methodOn(ItemController.class).getAllItems()).withRel("items")); 
-		
-		// Return the item data in a response
-		return new ResponseEntity<EntityModel<ItemDTO>>(itemEntityModel, HttpStatus.OK);
+	public ResponseEntity<ItemDTO> getItemById(@PathVariable("id") Integer id) {
+		ItemDTO item = itemService.readById(id);		
+		return new ResponseEntity<ItemDTO>(item, HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> createItem(@Valid @RequestBody Item item) {
-
-		
+	public ResponseEntity<ItemDTO> createItem(@Valid @RequestBody Item item) {	
 		ItemDTO newItem = itemService.createItem(item);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Location", String.valueOf(newItem.getItemId()));
 		
-		// Wrapping the DTO with the entity model assembler
-		EntityModel<ItemDTO> model = itemDTOModelAssembler.toModel(newItem);
-
-		ResponseEntity<?> response = ResponseEntity.created(
-				model.getRequiredLink(IanaLinkRelations.SELF).toUri()
-		).body(model);
-		
-
-		return response;
+		return new ResponseEntity<ItemDTO>(newItem, headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateItem(@PathVariable("id") Integer id,
-										   @RequestBody Item item) {
-		
+	public ResponseEntity<ItemDTO> updateItem(@PathVariable("id") Integer id, @RequestBody Item item) {
 		ItemDTO updatedItem = itemService.updateItem(id, item);
-		
-		EntityModel<ItemDTO> model = itemDTOModelAssembler.toModel(updatedItem);
-		
-		HttpHeaders headers = new HttpHeaders();
-
-		headers.add("Location", model.getRequiredLink(IanaLinkRelations.SELF).toUri().toString());
-		
-		return new ResponseEntity<EntityModel<ItemDTO>>(model, headers, HttpStatus.OK);
+		return new ResponseEntity<ItemDTO>(updatedItem, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")

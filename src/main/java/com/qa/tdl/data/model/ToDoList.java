@@ -119,4 +119,9 @@ public class ToDoList {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "ToDoList [listId=" + listId + ", title=" + title + ", completed=" + completed + ", item=" + item + "]";
+	}
+
 }

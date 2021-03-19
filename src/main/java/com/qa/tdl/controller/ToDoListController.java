@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.tdl.services.ToDoListService;
@@ -30,12 +29,11 @@ public class ToDoListController {
 	
 	private ToDoListService toDoListService;
 	
-	@Autowired // constructor injection (injected from the application context)
+	@Autowired
 	public ToDoListController(ToDoListService toDoListService) throws Exception {
 		this.toDoListService = toDoListService;
 	}
 	
-	// localhost:8080/todolist
 	@GetMapping
 	public ResponseEntity<List<ToDoListDTO>> getAllToDoList() {
 		
@@ -44,7 +42,6 @@ public class ToDoListController {
 		return new ResponseEntity<List<ToDoListDTO>>(data, HttpStatus.OK);
 	}
 	
-	// localhost:8080/todolist/3
 	@GetMapping("/{id}") 
 	public ResponseEntity<ToDoListDTO> getToDoListById(@PathVariable("id") int id) {
 		

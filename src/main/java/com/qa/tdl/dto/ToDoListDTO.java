@@ -1,38 +1,25 @@
-package com.qa.tdl.data.model;
+package com.qa.tdl.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
-@Entity
-public class ToDoList {
+public class ToDoListDTO {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int listId;
 	
-	@Column(name = "name", unique = true)
-	@NotNull
 	private String title;
 	
-	@NotNull
 	private Boolean completed;
 	
-	public ToDoList() {
-		super();
+	@Override
+	public String toString() {
+		return "ToDoListDTO [id=" + listId + ", name=" + title + ", status=" + completed + "]";
 	}
-
-	public ToDoList(String title, Boolean completed) {
-		super();
-		this.title = title;
-		this.completed = completed;
+	
+	public ToDoListDTO() {
+		
 	}
-	public ToDoList(int id, String title, Boolean completed) {
+	
+	public ToDoListDTO(int listId, String title, Boolean completed) {
 		super();
-		this.listId = id;
+		this.listId = listId;
 		this.title = title;
 		this.completed = completed;
 	}
@@ -40,18 +27,23 @@ public class ToDoList {
 	public int getListId() {
 		return listId;
 	}
+
 	public void setListId(int listId) {
 		this.listId = listId;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public Boolean getCompleted() {
 		return completed;
 	}
+
 	public void setCompleted(Boolean completed) {
 		this.completed = completed;
 	}
@@ -60,9 +52,9 @@ public class ToDoList {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((completed == null) ? 0 : completed.hashCode());
 		result = prime * result + listId;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((completed == null) ? 0 : completed.hashCode());
 		return result;
 	}
 
@@ -74,7 +66,12 @@ public class ToDoList {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ToDoList other = (ToDoList) obj;
+		ToDoListDTO other = (ToDoListDTO) obj;
+		if (completed == null) {
+			if (other.completed != null)
+				return false;
+		} else if (!completed.equals(other.completed))
+			return false;
 		if (listId != other.listId)
 			return false;
 		if (title == null) {
@@ -82,9 +79,7 @@ public class ToDoList {
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (completed != other.completed)
-			return false;
 		return true;
 	}
-
+	
 }

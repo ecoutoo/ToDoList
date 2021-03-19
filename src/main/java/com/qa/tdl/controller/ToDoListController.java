@@ -21,98 +21,59 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.tdl.services.ToDoListService;
 import com.qa.tdl.data.model.ToDoList;
+import com.qa.tdl.dto.ToDoListDTO;
 
 @CrossOrigin
 @RestController
-@RequestMapping(path = "/todolist") // This controller has a base path of /todolist (localhost:8080/todolist)
+@RequestMapping(path = "/todolist") 
 public class ToDoListController {
 	
-	//localhost:8080/
-	//@RequestMapping(method = RequestMethod.GET)
-	
-	//@Autowired //field injection
 	private ToDoListService toDoListService;
 	
 	@Autowired // constructor injection (injected from the application context)
-	public ToDoListController(ToDoListService toDoListService) {
+	public ToDoListController(ToDoListService toDoListService) throws Exception {
 		this.toDoListService = toDoListService;
 	}
 	
 	// localhost:8080/todolist
 	@GetMapping
-	public ResponseEntity<List<ToDoList>> getAllToDoList() {
+	public ResponseEntity<List<ToDoListDTO>> getAllToDoList() {
 		
-		// Response has headers, a body and a status code
-		HttpHeaders httpHeaders = new HttpHeaders(); // Creating some headers
-		httpHeaders.add("Location", "1442"); // Adding a header
+		List<ToDoListDTO> data = toDoListService.checkAllToDoLists();
 		
-		// Requesting our toDoListDTO data from the toDoListService
-		List<ToDoList> data = toDoListService.checkAllToDoLists();
-		
-		// returning a response of type ResponseEntity(Body, Headers, HttpStatus)
-		return new ResponseEntity<List<ToDoList>>(data, httpHeaders, HttpStatus.OK);
+		return new ResponseEntity<List<ToDoListDTO>>(data, HttpStatus.OK);
 	}
 	
 	// localhost:8080/todolist/3
-	@GetMapping("/{id}") // {id} is a path variable
-	public ResponseEntity<ToDoList> getToDoListById(@PathVariable("id") int id) {
-		// The path variable is captured by the @PathVariable annotation
-		// - WE MUST SUPPLY A MATCHING NAME WITHIN THE PARENTHESIS
-		// - WE MUST SUPPLY AN APPROPRIATE DATA TYPE FOR THE VAR TO CONVERT TO
+	@GetMapping("/{id}") 
+	public ResponseEntity<ToDoListDTO> getToDoListById(@PathVariable("id") int id) {
 		
-		// Get our toDoList data using the service
-		ToDoList toDoList = toDoListService.readById(id);
+		ToDoListDTO toDoList = toDoListService.readById(id);
 		
-		// Return the toDoList data in a response
-		return new ResponseEntity<ToDoList>(toDoList, HttpStatus.OK);
-	}
-	
-	// Spring Boots version of @PathParam is @RequestParam(defaultValue = "")
-	// localhost:8080/todolist/alt?id=1
-	@GetMapping("/alt")
-	public ResponseEntity<ToDoList> getToDoListByIdAlt(@RequestParam("id") int id) {
-		// @RequestParam grabs a query parameter from our path
-		// - In this case, it is called `id` and MUST BE SUPPLIED
-		// - We can make it optional like so: @RequestParam(name = "id", required = false)
-		//   - Or @RequestParam(name = "id", defaultValue = "")
-		
-		
-		ToDoList toDoList = toDoListService.readById(id);
-		
-		return new ResponseEntity<ToDoList>(toDoList, HttpStatus.OK);
+		return new ResponseEntity<ToDoListDTO>(toDoList, HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<ToDoList> createToDoList(@Valid @RequestBody ToDoList toDoList) {
-		// A toDoList is retrieved from the incoming request body (the conversion from json to toDoList is automatic)
-		// - `@RequestBody toDoList toDoList` makes this happen
-		// - @Valid is used to employ our models validation on the incoming request
+	public ResponseEntity<ToDoListDTO> createToDoList(@Valid @RequestBody ToDoList toDoList) {
 		
-		ToDoList newToDoList = toDoListService.createToDoList(toDoList);
+		ToDoListDTO newToDoList = toDoListService.createToDoList(toDoList);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", String.valueOf(newToDoList.getListId()));
 	
-		return new ResponseEntity<ToDoList>(newToDoList, headers, HttpStatus.CREATED);
+		return new ResponseEntity<ToDoListDTO>(newToDoList, headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ToDoList> updateToDoList(@PathVariable("id") int id,
+	public ResponseEntity<ToDoListDTO> updateToDoList(@PathVariable("id") int id,
 										   @RequestBody ToDoList toDoList) {
-		ToDoList updatedToDoList = toDoListService.updateToDoList(id, toDoList);
+		ToDoListDTO updatedToDoList = toDoListService.updateToDoList(id, toDoList);
 		
-		return new ResponseEntity<ToDoList>(updatedToDoList, HttpStatus.OK);
+		return new ResponseEntity<ToDoListDTO>(updatedToDoList, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteToDoList(@PathVariable("id") int id) {		
 		return new ResponseEntity<Boolean>(toDoListService.deleteToDoList(id), HttpStatus.OK);
 	}
-	
-	// @GetMapping (retrieving something)
-	// @PostMapping (creating something)
-	// @PutMapping (generalised update)
-	// @PatchMapping (specific update)
-	// @DeleteMapping (deleting something)
-
 }

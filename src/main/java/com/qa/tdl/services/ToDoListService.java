@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 
 import com.qa.tdl.data.model.ToDoList;
 import com.qa.tdl.dto.ToDoListDTO;
-import com.qa.tdl.data.repository.ToDoListRepo;
+import com.qa.tdl.data.repository.ToDoListRepository;
 import com.qa.tdl.mappers.ToDoListMapper;
 
 @Service
 public class ToDoListService {
 	
-	 private ToDoListRepo toDoListRepository;	 
+	 private ToDoListRepository toDoListRepository;	 
 	 private ToDoListMapper toDoListMapper;
 	 
 	 @Autowired
-	 public ToDoListService(ToDoListRepo toDoListRepository, ToDoListMapper toDoListMapper) {
+	 public ToDoListService(ToDoListRepository toDoListRepository, ToDoListMapper toDoListMapper) {
 		 this.toDoListMapper = toDoListMapper;
 		 this.toDoListRepository = toDoListRepository;
 	 }

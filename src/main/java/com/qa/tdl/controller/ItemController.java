@@ -85,15 +85,6 @@ public class ItemController {
 		return new ResponseEntity<EntityModel<ItemDTO>>(itemEntityModel, HttpStatus.OK);
 	}
 	
-	@GetMapping("/alt")
-	public ResponseEntity<ItemDTO> getItemByIdAlt(@RequestParam("id") Integer id) {
-		
-		
-		ItemDTO item = itemService.readById(id);
-		
-		return new ResponseEntity<ItemDTO>(item, HttpStatus.OK);
-	}
-	
 	@PostMapping
 	public ResponseEntity<?> createItem(@Valid @RequestBody Item item) {
 

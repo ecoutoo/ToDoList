@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
-<dependencies>
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -76,6 +76,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -83,6 +88,21 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<!-- Plugin to gen OpenAPI descriptions for json and yaml -->
+			<plugin>
+				<groupId>org.springdoc</groupId>
+			    <artifactId>springdoc-openapi-maven-plugin</artifactId>
+			    <version>0.2</version>
+			    <executions>
+			        <execution>
+			            <phase>integration-test</phase>
+			            <goals>
+			                <goal>generate</goal>
+			            </goals>
+			        </execution>
+			    </executions>
 			</plugin>
 		</plugins>
 	</build>

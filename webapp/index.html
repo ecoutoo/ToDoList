@@ -45,12 +45,6 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <img
-              alt=""
-              class="resize-image center-block"
-              id="image1"
-              src="/Learning/task/resources/filmf.png"
-            />
             <p class="text-center">
               Major Alan "Dutch" Schaeffer and his elite mercenary rescue squad
               are sent to retrieve a cabinet minister held hostage in a Banana
@@ -63,24 +57,51 @@
         </div>
       </div>
     </section>
-    <section class="sideimages">
+    <section class="listbuttons">
       <div class="container">
-        <div class="row">
-          <div class="col-md-4">
+        <div class="row", id="buttonrow">
+          <div class="col-md-1">
             <p class="text-center">
-              <button class="btn btn-danger" id="clearHistory" onclick="ReadAll()">Read All Lists</button>
+              <label for="cars">Select:</label>
+              <select name="cars" id="cars">
+              <option value="listdata">List</option>
+              <option value="itemdata">Item</option>
+              </select>
             </p>
           </div>
           <div class="col-md-4">
             <p class="text-center">
-              <button class="btn btn-danger" id="clearHistory" onclick="ReadAll()">FETCH INFO</button>
+              <input type="number" class="form-control" id="listNumForm" placeholder="List/Item Number to Read/Update"/>
             </p>
+            <div id="block_container">
+              <button class="btn btn-success" id="readAllButton" onclick="readAll()">Read All List</button>
+              <button class="btn btn-success" id="readIdButton" onclick="readOne()">Read One List</button>
+              <button class="btn btn-danger" id="deleteButton" onclick="deleteOne()">Delete One List/item</button>
+            </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-7">
             <p class="text-center">
-              <button class="btn btn-danger" id="clearHistory" onclick="ReadAll()">FETCH INFO</button>
+              <input type="text" class="form-control" id="listNameForm" placeholder="List Name/Item Text"/>
             </p>
+            <div id="block_container">
+              <button class="btn btn-warning" id="createButton" onclick="createAll()">Create List/Item</button>
+              <button class="btn btn-primary" id="updateButton" onclick="updateAll()">Update List/Item</button>
+            </div>
           </div>
+        </div>
+      </div>
+    </section>
+    <section class="listholder">
+      <div class="container">
+        <div class="row", id="listrow">
+          <p class="text-center">
+            Major Alan "Dutch" Schaeffer and his elite mercenary rescue squad
+            are sent to retrieve a cabinet minister held hostage in a Banana
+            Republic during the late years of the Cold War.But all of that
+            takes a back seat once a mysterious, invisible enemy with weapons
+            not of this Earth starts killing off Dutch's team one by one...
+            There's something out there waiting for us and it aint no man.
+          </p>
         </div>
       </div>
     </section>

@@ -17,6 +17,8 @@ function readAll() {
             console.info(data)
             for (var i = 0; i < data.length; i++) {
                 displayList(data[i])
+                let currentId = data[i].listId
+                readAllItems(currentId);
             }
             querySuccess();
         }) // 4
@@ -24,6 +26,31 @@ function readAll() {
         console.error(`${err}`)
         queryFailure();
     }); // 5
+}
+
+function readAllItems(listId){
+    fetch("http://localhost:8080/item", {
+        method: 'get',    
+        }) // 1  
+        .then((response) => {
+            if (response.status !== 200) {  //  2
+                console.error(`status: ${reponse.status}`);
+                return;
+            }
+            response.json() // 3
+            .then(data => {
+                console.info(data)
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].identification.charAt(0) == listId) {
+                        displayItem(data[i])
+                      }
+                }
+                querySuccess();
+            }) // 4
+        }).catch((err)=> {
+            console.error(`${err}`)
+            queryFailure();
+        }); // 5
 }
 
 function readOne() {

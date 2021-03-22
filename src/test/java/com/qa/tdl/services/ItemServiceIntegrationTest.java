@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -55,18 +56,21 @@ public class ItemServiceIntegrationTest {
 	}
 	
 	@Test
+	@Order(1)
 	public void readAllItemsTest() {
 		List<ItemDTO> itemsInDb = itemService.readAllItems();	
 		assertThat(itemDTOs).isEqualTo(itemsInDb);
 	}
 	
 	@Test
+	@Order(2)
 	public void readbyIdTest() {
 		ItemDTO itemsInDb = itemService.readById(validItem.getItemId());
 		assertThat(validItemDTO).isEqualTo(itemsInDb);
 	}
 	
 	@Test
+	@Order(3)
 	public void createItemsTest() {
 		Item newItem = new Item("TestItem2", true);
 		ItemDTO itemsInDb = itemService.createItem(newItem);		
@@ -74,8 +78,9 @@ public class ItemServiceIntegrationTest {
 	}
 	
 	@Test
+	@Order(4)
 	public void updateItemTest() {
-		Item changedItem = new Item(6, "TestItem3", true);
+		Item changedItem = new Item(5, "TestItem3", true);
 		ItemDTO itemsInDb = itemService.updateItem(validItem.getItemId(), changedItem);		
 		assertThat(itemMapper.mapToDTO(changedItem)).isEqualTo(itemsInDb);
 	}

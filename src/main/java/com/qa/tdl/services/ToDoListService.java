@@ -31,10 +31,8 @@ public class ToDoListService {
 	 public List<ToDoListDTO> checkAllToDoLists(){
 		 List<ToDoList> toDoListInDb= toDoListRepository.findAll();
 		 //List<ToDoListDTO> toDoListDTO= new ArrayList<ToDoListDTO>();
-		 List<ToDoListDTO> toDoListDTO= new ArrayList<>();
-		 toDoListInDb.forEach(toDoList -> {toDoListDTO.add(toDoListMapper.mapToDTO(toDoList));});
-		 
-		 //toDoListInDb.forEach(toDoList -> toDoListDTO.add(toDoListMapper.mapToDTO(toDoList)));
+		 List<ToDoListDTO> toDoListDTO= new ArrayList<>();		 
+		 toDoListInDb.forEach(toDoList -> toDoListDTO.add(toDoListMapper.mapToDTO(toDoList)));
 		 return toDoListDTO;
 	 }
 	 

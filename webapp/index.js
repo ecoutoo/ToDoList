@@ -2,6 +2,8 @@
 
 let id = document.querySelector("#listNumForm");
 
+let listId = document.querySelector("#NumForm");
+
 let dataType = document.querySelector("#datatype");
 
 let textData = document.querySelector("#listNameForm");
@@ -132,8 +134,8 @@ function createOne(){
 function updateOne(){
     clearInfo();
     if (dataType.value == "listdata") {
-        fetch("http://localhost:8080/todolist", {
-            method: 'post',
+        fetch("http://localhost:8080/todolist/" + id.value, {
+            method: 'put',
             headers: {
                 "Content-type": "application/json"
             },
@@ -150,8 +152,8 @@ function updateOne(){
             .catch((error) => console.error(`Request failed ${error}`))
     }
     else if (dataType.value == "itemdata"){
-        fetch("http://localhost:8080/item", {
-            method: 'post',
+        fetch("http://localhost:8080/item/" + id.value, {
+            method: 'put',
             headers: {
                 "Content-type": "application/json"
             },
@@ -159,7 +161,7 @@ function updateOne(){
                 "textBody": textData.value,
                 "taskDone": document.getElementById("myCheck").checked,
                 "toDoList": {
-                    "listId": id.value
+                    "listId": listId.value
                 }
             })
         }).then(res => res.json())

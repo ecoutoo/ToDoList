@@ -12,6 +12,7 @@ let doneBool = document.querySelector("#myCheck");
 
 function readAll() {
     clearInfo();
+    getAllItems();
     fetch("http://localhost:8080/todolist", {
     method: 'get',    
     }) // 1  
@@ -174,6 +175,31 @@ function updateOne(){
     queryFailure();
 }
 
+function getAllItems(){
+    fetch("http://localhost:8080/item", {
+        method: 'get',    
+        }) // 1  
+        .then((response) => {
+            if (response.status !== 200) {  //  2
+                console.error(`status: ${reponse.status}`);
+                return;
+            }
+            response.json() // 3
+            .then(data => {
+                console.info(data)
+                for (var i = 0; i < data.length; i++) {
+                    displayItem(data[i])
+                    let currentId = data[i].listId
+                }
+                querySuccess();
+                return;
+            }) // 4
+        }).catch((err)=> {
+            console.error(`${err}`)
+        }); // 5
+        queryFailure();
+}
+
 function displayList(data){
     console.log("Displaying List")
     let parent = document.querySelector('.listDiv');
@@ -186,7 +212,7 @@ function displayItem(data){
     console.log("Displaying Item")
     let parent = document.querySelector('.listDiv');
     let div = document.createElement('div');
-    div.innerHTML = data.itemId + ': ' + data.textBody + ', Done?: ' + data.completed;
+    div.innerHTML = 'TASK ' + data.itemId + ': ' + data.textBody + ', Done?: ' + data.taskDone;
     parent.appendChild(div);
 }
 

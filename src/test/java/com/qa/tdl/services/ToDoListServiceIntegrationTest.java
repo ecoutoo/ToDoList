@@ -25,7 +25,7 @@ import com.qa.tdl.data.repository.ItemRepository;
 import com.qa.tdl.services.ToDoListService;
 
 @SpringBootTest
-public class ToDoListServiceTestIntegration {
+public class ToDoListServiceIntegrationTest {
 	
 	@Autowired
 	private ToDoListService toDoListService;

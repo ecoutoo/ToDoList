@@ -25,7 +25,7 @@ import com.qa.tdl.dto.ItemDTO;
 import com.qa.tdl.mappers.ItemMapper;
 
 @SpringBootTest
-public class ItemServiceTestUnit {
+public class ItemServiceUnitTest {
 	
 	@Autowired
 	private ItemService itemService;

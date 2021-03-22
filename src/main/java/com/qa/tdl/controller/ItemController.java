@@ -37,13 +37,13 @@ public class ItemController {
 	@GetMapping
 	public ResponseEntity<List<ItemDTO>> getAllItems() {
 		List<ItemDTO> data = itemService.readAllItems();
-		return new ResponseEntity<List<ItemDTO>>(data, HttpStatus.OK);	
+		return new ResponseEntity<>(data, HttpStatus.OK);	
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ItemDTO> getItemById(@PathVariable("id") int id) {
 		ItemDTO item = itemService.readById(id);
-		return new ResponseEntity<ItemDTO>(item, HttpStatus.OK);
+		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -53,18 +53,18 @@ public class ItemController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", String.valueOf(newItem.getItemId()));
 		
-		return new ResponseEntity<ItemDTO>(newItem, headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(newItem, headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ItemDTO> updateItem(@PathVariable("id") int id, @RequestBody Item item) {
 		ItemDTO updatedItem = itemService.updateItem(id, item);
-		return new ResponseEntity<ItemDTO>(updatedItem, HttpStatus.OK);
+		return new ResponseEntity<>(updatedItem, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteItem(@PathVariable("id") int id) {
-		return new ResponseEntity<Boolean>(itemService.deleteItem(id), HttpStatus.OK);
+		return new ResponseEntity<>(itemService.deleteItem(id), HttpStatus.OK);
 	}
 
 }

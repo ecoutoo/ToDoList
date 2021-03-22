@@ -23,7 +23,7 @@ import com.qa.tdl.data.model.Item;
 import com.qa.tdl.dto.ItemDTO;
 
 @SpringBootTest
-public class ItemControllerTestUnit {
+public class ItemControllerUnitTest {
 	
 	@Autowired
 	private ItemController itemController;

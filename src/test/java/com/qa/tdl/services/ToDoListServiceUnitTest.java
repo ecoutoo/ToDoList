@@ -25,7 +25,7 @@ import com.qa.tdl.dto.ToDoListDTO;
 import com.qa.tdl.mappers.ToDoListMapper;
 
 @SpringBootTest
-public class ToDoListServiceTestUnit {
+public class ToDoListServiceUnitTest {
 	
 	@Autowired
 	private ToDoListService toDoListService;

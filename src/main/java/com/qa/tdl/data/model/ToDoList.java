@@ -45,11 +45,27 @@ public class ToDoList {
 		this.title = title;
 		this.completed = completed;
 	}
+	
 	public ToDoList(int id, String title, Boolean completed) {
 		super();
 		this.listId = id;
 		this.title = title;
 		this.completed = completed;
+	}
+	
+	public ToDoList(String title, Boolean completed, List<Item> item) {
+		super();
+		this.title = title;
+		this.completed = completed;
+		this.item = item;
+	}
+	
+	public ToDoList(int id, String title, Boolean completed, List<Item> item) {
+		super();
+		this.listId = id;
+		this.title = title;
+		this.completed = completed;
+		this.item = item;
 	}
 	
 	public int getListId() {

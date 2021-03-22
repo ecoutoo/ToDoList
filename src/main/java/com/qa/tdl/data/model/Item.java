@@ -20,10 +20,11 @@ public class Item {
 	@Column(name = "item_id")
 	private int itemId;
 	
-	@Column(name = "textbody")
+	@Column(name = "text_body")
 	@NotNull
 	private String textBody;
 	
+	@Column(name = "task_done")
 	@NotNull
 	private Boolean taskDone;
 	

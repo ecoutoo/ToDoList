@@ -41,46 +41,66 @@
         </ul>
       </div>
     </nav>
-    <section class="mainimages">
+    <section class="querystatus">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <img
-              alt=""
-              class="resize-image center-block"
-              id="image1"
-              src="/Learning/task/resources/filmf.png"
-            />
             <p class="text-center">
-              Major Alan "Dutch" Schaeffer and his elite mercenary rescue squad
-              are sent to retrieve a cabinet minister held hostage in a Banana
-              Republic during the late years of the Cold War.But all of that
-              takes a back seat once a mysterious, invisible enemy with weapons
-              not of this Earth starts killing off Dutch's team one by one...
-              There's something out there waiting for us and it aint no man.
+              <H1>QUERY STATUS</H1>
             </p>
+          </div>
+        </div>
+    </section>
+    <section class="listbuttons">
+      <div class="container">
+        <div class="row", id="buttonrow">
+          <div class="col-md-1">
+            <p class="text-center">
+              <label for="datatype">Select:</label>
+              <select name="datatype" id="datatype">
+              <option value="listdata">List</option>
+              <option value="itemdata">Item</option>
+              </select>
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="text-center">
+              <input type="number" class="form-control" id="listNumForm" placeholder="List/Item Number to Read/Update/Delete"/>
+            </p>
+            <div id="block_container">
+              <button class="btn btn-success" id="readAllButton" onclick="readAll()">Read All List</button>
+              <button class="btn btn-success" id="readIdButton" onclick="readOne()">Read One List</button>
+              <button class="btn btn-danger" id="deleteButton" onclick="deleteOne()">Delete One List/item</button>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <p class="text-center">
+              <input type="text" class="form-control" id="listNameForm" placeholder="List Name/Item Text"/>
+            </p>
+            <div id="block_container">
+              <button class="btn btn-warning" id="createButton" onclick="createOne()">Create List/Item</button>
+              <button class="btn btn-primary" id="updateButton" onclick="updateOne()">Update List/Item</button>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div id="block_container">
+              <h6>Item part of List:</h6>
+              <input type="number" class="form-control" id="NumForm" placeholder="List Id"/>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div id="block_container">
+              <h6>Done?</h6>
+              <input type="checkbox" id="myCheck">
+            </div>
           </div>
         </div>
       </div>
     </section>
-    <section class="sideimages">
+    <section class="listholder">
       <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <p class="text-center">
-              <button class="btn btn-danger" id="clearHistory" onclick="ReadAll()">Read All Lists</button>
-            </p>
-          </div>
-          <div class="col-md-4">
-            <p class="text-center">
-              <button class="btn btn-danger" id="clearHistory" onclick="ReadAll()">FETCH INFO</button>
-            </p>
-          </div>
-          <div class="col-md-4">
-            <p class="text-center">
-              <button class="btn btn-danger" id="clearHistory" onclick="ReadAll()">FETCH INFO</button>
-            </p>
-          </div>
+        <div class="row", id="listrow", value="checked">
+          <div class="listDiv"></div>
         </div>
       </div>
     </section>

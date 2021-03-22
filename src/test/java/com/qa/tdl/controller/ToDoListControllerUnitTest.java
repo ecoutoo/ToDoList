@@ -23,7 +23,7 @@ import com.qa.tdl.data.model.ToDoList;
 import com.qa.tdl.dto.ToDoListDTO;
 
 @SpringBootTest
-public class ToDoListControllerTestUnit {
+public class ToDoListControllerUnitTest {
 
 	@Autowired
 	private ToDoListController toDoListController;

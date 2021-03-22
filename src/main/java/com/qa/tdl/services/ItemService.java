@@ -30,7 +30,7 @@ public class ItemService {
 
 	public List<ItemDTO> readAllItems() {
 		List<Item> items = itemRepository.findAll();
-		List<ItemDTO> itemDTOs = new ArrayList<ItemDTO>();
+		List<ItemDTO> itemDTOs = new ArrayList<>();
 
 		items.forEach(item -> itemDTOs.add(itemMapper.mapToDTO(item)));
 

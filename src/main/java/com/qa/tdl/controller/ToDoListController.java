@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.tdl.services.ToDoListService;
@@ -31,7 +30,7 @@ public class ToDoListController {
 	private ToDoListService toDoListService;
 	
 	@Autowired // constructor injection (injected from the application context)
-	public ToDoListController(ToDoListService toDoListService) throws Exception {
+	public ToDoListController(ToDoListService toDoListService) {
 		this.toDoListService = toDoListService;
 	}
 	
@@ -41,7 +40,7 @@ public class ToDoListController {
 		
 		List<ToDoListDTO> data = toDoListService.checkAllToDoLists();
 		
-		return new ResponseEntity<List<ToDoListDTO>>(data, HttpStatus.OK);
+		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
 	
 	// localhost:8080/todolist/3
@@ -50,7 +49,7 @@ public class ToDoListController {
 		
 		ToDoListDTO toDoList = toDoListService.readById(id);
 		
-		return new ResponseEntity<ToDoListDTO>(toDoList, HttpStatus.OK);
+		return new ResponseEntity<>(toDoList, HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -61,7 +60,7 @@ public class ToDoListController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", String.valueOf(newToDoList.getListId()));
 	
-		return new ResponseEntity<ToDoListDTO>(newToDoList, headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(newToDoList, headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
@@ -69,11 +68,11 @@ public class ToDoListController {
 										   @RequestBody ToDoList toDoList) {
 		ToDoListDTO updatedToDoList = toDoListService.updateToDoList(id, toDoList);
 		
-		return new ResponseEntity<ToDoListDTO>(updatedToDoList, HttpStatus.OK);
+		return new ResponseEntity<>(updatedToDoList, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteToDoList(@PathVariable("id") int id) {		
-		return new ResponseEntity<Boolean>(toDoListService.deleteToDoList(id), HttpStatus.OK);
+		return new ResponseEntity<>(toDoListService.deleteToDoList(id), HttpStatus.OK);
 	}
 }

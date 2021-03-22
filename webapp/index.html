@@ -56,8 +56,8 @@
         <div class="row", id="buttonrow">
           <div class="col-md-1">
             <p class="text-center">
-              <label for="cars">Select:</label>
-              <select name="cars" id="cars">
+              <label for="datatype">Select:</label>
+              <select name="datatype" id="datatype">
               <option value="listdata">List</option>
               <option value="itemdata">Item</option>
               </select>
@@ -73,13 +73,19 @@
               <button class="btn btn-danger" id="deleteButton" onclick="deleteOne()">Delete One List/item</button>
             </div>
           </div>
-          <div class="col-md-7">
+          <div class="col-md-6">
             <p class="text-center">
               <input type="text" class="form-control" id="listNameForm" placeholder="List Name/Item Text"/>
             </p>
             <div id="block_container">
-              <button class="btn btn-warning" id="createButton" onclick="createAll()">Create List/Item</button>
-              <button class="btn btn-primary" id="updateButton" onclick="updateAll()">Update List/Item</button>
+              <button class="btn btn-warning" id="createButton" onclick="createOne()">Create List/Item</button>
+              <button class="btn btn-primary" id="updateButton" onclick="updateOne()">Update List/Item</button>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div id="block_container">
+              <h6>Done?</h6>
+              <input type="checkbox" id="myCheck">
             </div>
           </div>
         </div>
@@ -87,7 +93,7 @@
     </section>
     <section class="listholder">
       <div class="container">
-        <div class="row", id="listrow">
+        <div class="row", id="listrow", value="checked">
           <div class="listDiv"></div>
         </div>
       </div>

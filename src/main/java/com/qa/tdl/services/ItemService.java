@@ -76,9 +76,6 @@ public class ItemService {
 			throw new EntityNotFoundException();
 		}
 		itemRepository.deleteById(id);
-
-		boolean exists = itemRepository.existsById(id);
-
-		return !exists;
+		return true;
 	}
 }

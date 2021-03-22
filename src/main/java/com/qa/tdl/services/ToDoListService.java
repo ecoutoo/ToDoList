@@ -27,12 +27,14 @@ public class ToDoListService {
 		 this.toDoListRepository = toDoListRepository;
 	 }
 	 
-	 @Transactional
+	 //@Transactional
 	 public List<ToDoListDTO> checkAllToDoLists(){
 		 List<ToDoList> toDoListInDb= toDoListRepository.findAll();
-		 List<ToDoListDTO> toDoListDTO= new ArrayList<ToDoListDTO>();
+		 //List<ToDoListDTO> toDoListDTO= new ArrayList<ToDoListDTO>();
+		 List<ToDoListDTO> toDoListDTO= new ArrayList<>();
+		 toDoListInDb.forEach(toDoList -> {toDoListDTO.add(toDoListMapper.mapToDTO(toDoList));});
 		 
-		 toDoListInDb.forEach(toDoList -> toDoListDTO.add(toDoListMapper.mapToDTO(toDoList)));
+		 //toDoListInDb.forEach(toDoList -> toDoListDTO.add(toDoListMapper.mapToDTO(toDoList)));
 		 return toDoListDTO;
 	 }
 	 
@@ -54,10 +56,8 @@ public class ToDoListService {
 			 throw new EntityNotFoundException();
 		 }
 		 toDoListRepository.deleteById(id);
+		 return true;
 		 
-		 boolean exists = toDoListRepository.existsById(id);
-		 
-		 return !exists;
 	 }
 	 
 	 public ToDoListDTO updateToDoList(Integer id, ToDoList toDoList) {

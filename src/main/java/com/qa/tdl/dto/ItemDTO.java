@@ -12,6 +12,12 @@ public class ItemDTO {
 		super();
 	}
 
+	public ItemDTO(String textBody, Boolean taskDone) {
+		super();
+		this.textBody = textBody;
+		this.taskDone = taskDone;
+	}
+	
 	public ItemDTO(int itemId, String textBody, Boolean taskDone) {
 		super();
 		this.itemId = itemId;

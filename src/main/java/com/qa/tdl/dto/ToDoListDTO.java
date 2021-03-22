@@ -16,6 +16,12 @@ public class ToDoListDTO {
 		
 	}
 	
+	public ToDoListDTO(String title, Boolean completed) {
+		super();
+		this.title = title;
+		this.completed = completed;
+	}
+	
 	public ToDoListDTO(int listId, String title, Boolean completed, List<ItemDTO> items) {
 		super();
 		this.listId = listId;
@@ -101,5 +107,4 @@ public class ToDoListDTO {
 		return "ToDoListDTO [listId=" + listId + ", title=" + title + ", completed=" + completed + ", items=" + items
 				+ "]";
 	}
-	
 }

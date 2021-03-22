@@ -23,9 +23,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 
 import utils.ScreenShot;
-import pages.HomePage;
-import pages.ListPageButtons;
-import pages.ListPageForms;
+import pages.ListPage;
 
 public class CreateListTest {
 	
@@ -55,9 +53,9 @@ public class CreateListTest {
     public void setup() {      
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		try {
-			driver.get(HomePage.URL);
+			driver.get(ListPage.URL);
 		} catch (TimeoutException e) {
-			System.out.println("Page: " + HomePage.URL + " did not load within 30 seconds!");
+			System.out.println("Page: " + ListPage.URL + " did not load within 30 seconds!");
 		}
     }
     
@@ -72,7 +70,7 @@ public class CreateListTest {
     }
     
  	@Test
- 	public void newTest() throws InterruptedException {
+ 	public void createList() throws InterruptedException {
  		
 		LOGGER.warning("Connecting to To Do List....");
 		new WebDriverWait(driver, 5);
@@ -80,12 +78,47 @@ public class CreateListTest {
 		String tNum = "1";
 		String tText = "test";
 	
-		ListPageButtons buttons = PageFactory.initElements(driver, ListPageButtons.class);
-		ListPageForms forms = PageFactory.initElements(driver, ListPageForms.class);
+		ListPage Page = PageFactory.initElements(driver, ListPage.class);
 
-		forms.NumInfo(tNum);
-		forms.TextInfo(tText);
-		buttons.clickReadAll();
+		Page.NumInfo(tNum);
+		Page.TextInfo(tText);
+		Page.clickCreate();
+
+		driver.getPageSource().contains("QUERY SUCCESS");
+ 		
+ 	}
+ 	
+ 	@Test
+ 	public void ReadOneList() throws InterruptedException {
+ 		
+		LOGGER.warning("Connecting to To Do List....");
+		new WebDriverWait(driver, 5);
+	
+		ListPage Page = PageFactory.initElements(driver, ListPage.class);
+
+		Page.clickReadAll();
+
+		driver.getPageSource().contains("QUERY SUCCESS");
+ 		
+ 	}
+ 	
+ 	@Test
+ 	public void DeleteOneList() throws InterruptedException {
+ 		
+		LOGGER.warning("Connecting to To Do List....");
+		new WebDriverWait(driver, 5);
+
+		String tNum = "1";
+		String tText = "test";
+		String tId = "1";
+	
+		ListPage Page = PageFactory.initElements(driver, ListPage.class);
+
+		Page.NumInfo(tNum);
+		Page.TextInfo(tText);
+		Page.IdInfo(tId);
+		
+		Page.clickDelete();
 
 		driver.getPageSource().contains("QUERY SUCCESS");
  		

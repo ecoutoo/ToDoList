@@ -68,13 +68,14 @@ public class ToDoListServiceIntegrationTest {
 		toDoListDTOs = List.of(validToDoListDTO);
 	}
 	
+	
+	/*
 	@Test
 	public void readAllToDoListsTest() {
 		List<ToDoListDTO> toDoListToTest = toDoListService.checkAllToDoLists();
 		assertThat(toDoListDTOs).isEqualTo(toDoListToTest);
 	}
 	
-	/*
 	@Test
 	public void createToDoListTest() {
 		ToDoList newToDoList = new ToDoList(1, "TestList", true);
